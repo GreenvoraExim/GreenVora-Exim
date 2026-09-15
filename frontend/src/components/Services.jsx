@@ -13,7 +13,7 @@ const services = [
     title: "Custom Packaging Solutions",
     description:
       "Create packaging tailored to your brand identity and business requirements. From design to delivery, we help bring your packaging vision to life.",
-    image: "/images/services/custom-packaging.jpg",
+    image: "/images/services/Custom.png",
     icon: Leaf,
     includes: [
       "Custom Sizes",
@@ -27,7 +27,7 @@ const services = [
     title: "Compostable Packaging Solutions",
     description:
       "Sustainable alternatives to conventional plastic packaging designed to reduce environmental impact without compromising functionality.",
-    image: "/images/services/compostable-packaging.jpg",
+    image: "/images/services/compostable.png",
     icon: Recycle,
     includes: [
       "Compostable Carry Bags",
@@ -41,7 +41,7 @@ const services = [
     title: "Paper Packaging Solutions",
     description:
       "Durable and eco-friendly paper packaging for retail, food service, and commercial applications.",
-    image: "/images/services/paper-packaging.jpg",
+    image: "/images/services/Paper.png",
     icon: FileText,
     includes: [
       "Paper Carry Bags",
@@ -55,7 +55,7 @@ const services = [
     title: "Jute Packaging Solutions",
     description:
       "Strong, reusable, and sustainable jute packaging solutions for businesses looking for premium eco-friendly alternatives.",
-    image: "/images/services/jute-packaging.jpg",
+    image: "/images/services/Jute.png",
     icon: ShoppingBag,
     includes: [
       "Shopping Bags",
@@ -69,7 +69,7 @@ const services = [
     title: "Bulk Supply & Export Support",
     description:
       "Reliable supply management for businesses across India and international markets with a focus on quality and timely delivery.",
-    image: "/images/services/export-support.jpg",
+    image: "/images/services/Bulk supply.png",
     icon: Globe2,
     includes: [
       "Bulk Order Fulfillment",
@@ -86,7 +86,7 @@ const Services = () => {
     <section className="py-20 sm:py-24 bg-gradient-to-b from-white via-emerald-50/40 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Heading */}
+        {/* Page Heading */}
         <div className="text-center mb-14 sm:mb-16">
           <p className="text-emerald-600 font-semibold tracking-wide uppercase text-sm mb-3">
             What We Offer
@@ -102,21 +102,21 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Service Cards */}
+        {/* Services */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
 
             return (
               <article
-                key={index}
+                key={service.title}
                 className={`group bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 ${
                   index === services.length - 1
                     ? "lg:col-span-2 lg:max-w-3xl lg:mx-auto lg:w-full"
                     : ""
                 }`}
               >
-                {/* Image */}
+                {/* Service Image */}
                 <div className="relative h-64 sm:h-72 overflow-hidden bg-emerald-50">
                   <img
                     src={service.image}
@@ -124,14 +124,14 @@ const Services = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
                   <div className="absolute bottom-5 left-5 w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-lg">
                     <Icon className="w-7 h-7" />
                   </div>
                 </div>
 
-                {/* Content */}
+                {/* Service Information */}
                 <div className="p-6 sm:p-8">
                   <h2 className="text-2xl sm:text-3xl font-bold text-emerald-900 mb-4">
                     {service.title}
@@ -146,12 +146,13 @@ const Services = () => {
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {service.includes.map((item, itemIndex) => (
+                    {service.includes.map((item) => (
                       <div
-                        key={itemIndex}
+                        key={item}
                         className="flex items-start gap-2 text-emerald-800"
                       >
                         <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+
                         <span>{item}</span>
                       </div>
                     ))}
@@ -162,7 +163,7 @@ const Services = () => {
           })}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Contact CTA */}
         <div className="mt-16 text-center bg-emerald-800 rounded-3xl px-6 py-10 sm:px-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
             Looking for a Custom Packaging Solution?
