@@ -1,122 +1,185 @@
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, Users, Shield, Leaf, Globe, Award, Package, Sparkles, RefreshCw } from 'lucide-react';
-import { apiGet, clearServicesCache } from '../apiClient';
-
-const ICON_MAP = {
-  TrendingUp,
-  Users,
-  Shield,
+import React from "react";
+import {
   Leaf,
-  Globe,
-  Award,
-  Package,
-  Sparkles,
-};
+  Recycle,
+  FileText,
+  ShoppingBag,
+  Globe2,
+  CheckCircle2,
+} from "lucide-react";
+
+const services = [
+  {
+    title: "Custom Packaging Solutions",
+    description:
+      "Create packaging tailored to your brand identity and business requirements. From design to delivery, we help bring your packaging vision to life.",
+    image: "/images/services/custom-packaging.jpg",
+    icon: Leaf,
+    includes: [
+      "Custom Sizes",
+      "Logo Printing",
+      "Brand Customization",
+      "Multiple Material Options",
+      "Bulk Order Support",
+    ],
+  },
+  {
+    title: "Compostable Packaging Solutions",
+    description:
+      "Sustainable alternatives to conventional plastic packaging designed to reduce environmental impact without compromising functionality.",
+    image: "/images/services/compostable-packaging.jpg",
+    icon: Recycle,
+    includes: [
+      "Compostable Carry Bags",
+      "Garbage Bags",
+      "Courier Bags",
+      "Certified Eco-Friendly Materials",
+      "Custom Printing Options",
+    ],
+  },
+  {
+    title: "Paper Packaging Solutions",
+    description:
+      "Durable and eco-friendly paper packaging for retail, food service, and commercial applications.",
+    image: "/images/services/paper-packaging.jpg",
+    icon: FileText,
+    includes: [
+      "Paper Carry Bags",
+      "Kraft Paper Bags",
+      "Food Packaging Bags",
+      "Printed Paper Bags",
+      "Custom Sizes & Designs",
+    ],
+  },
+  {
+    title: "Jute Packaging Solutions",
+    description:
+      "Strong, reusable, and sustainable jute packaging solutions for businesses looking for premium eco-friendly alternatives.",
+    image: "/images/services/jute-packaging.jpg",
+    icon: ShoppingBag,
+    includes: [
+      "Shopping Bags",
+      "Promotional Bags",
+      "Corporate Gift Bags",
+      "Customized Branding",
+      "Export-Quality Products",
+    ],
+  },
+  {
+    title: "Bulk Supply & Export Support",
+    description:
+      "Reliable supply management for businesses across India and international markets with a focus on quality and timely delivery.",
+    image: "/images/services/export-support.jpg",
+    icon: Globe2,
+    includes: [
+      "Bulk Order Fulfillment",
+      "Quality Assurance",
+      "Supply Chain Coordination",
+      "Export Documentation Support",
+      "Global Delivery Assistance",
+    ],
+  },
+];
 
 const Services = () => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [retryCount, setRetryCount] = useState(0);
-
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setError(null);
-
-    if (retryCount > 0) {
-      clearServicesCache();
-    }
-
-    apiGet('/api/services', { cacheKey: 'services', useCache: retryCount === 0 })
-      .then((data) => {
-        if (!active) return;
-        if (Array.isArray(data)) {
-          setServices(data);
-        } else {
-          setServices([]);
-        }
-      })
-      .catch((err) => {
-        if (!active) return;
-        console.error('Services fetch error:', err);
-        setError(err.message || 'Failed to load services');
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, [retryCount]);
-
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-emerald-50/40 to-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 sm:mb-20">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent mb-4 sm:mb-6">
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-white via-emerald-50/40 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Heading */}
+        <div className="text-center mb-14 sm:mb-16">
+          <p className="text-emerald-600 font-semibold tracking-wide uppercase text-sm mb-3">
+            What We Offer
+          </p>
+
+          <h1 className="text-4xl sm:text-5xl font-bold text-emerald-800 mb-5">
             Our Services
           </h1>
-          <p className="text-emerald-700 max-w-2xl mx-auto text-base sm:text-lg">
-            Comprehensive export and sourcing solutions tailored for global business success.
+
+          <p className="text-emerald-700 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
+            One-Stop Sustainable Packaging Solutions for businesses across
+            India and global markets.
           </p>
         </div>
 
-        {loading && (
-          <div className="flex justify-center items-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
-          </div>
-        )}
+        {/* Service Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {services.map((service, index) => {
+            const Icon = service.icon;
 
-        {error && !loading && (
-          <div className="max-w-md mx-auto text-center p-6 bg-red-50 rounded-2xl border border-red-200 shadow-sm mb-10">
-            <p className="text-red-600 font-medium mb-4">{error}</p>
-            <button
-              onClick={() => {
-                clearServicesCache();
-                setRetryCount((c) => c + 1);
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition shadow-md"
-            >
-              <RefreshCw className="w-4 h-4" /> Retry Loading
-            </button>
-          </div>
-        )}
+            return (
+              <article
+                key={index}
+                className={`group bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 ${
+                  index === services.length - 1
+                    ? "lg:col-span-2 lg:max-w-3xl lg:mx-auto lg:w-full"
+                    : ""
+                }`}
+              >
+                {/* Image */}
+                <div className="relative h-64 sm:h-72 overflow-hidden bg-emerald-50">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
 
-        {!loading && !error && services.length === 0 && (
-          <div className="text-center py-12 text-emerald-800 font-medium">
-            No services currently available.
-          </div>
-        )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-        {!loading && !error && services.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {services.map((service, index) => {
-              const IconComp = ICON_MAP[service.icon] || Sparkles;
-
-              return (
-                <div
-                  key={service._id || index}
-                  className="group relative bg-gradient-to-br from-emerald-50 to-emerald-100/70 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border-l-4 sm:border-l-8 border-emerald-500 hover:border-emerald-600 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-                >
-                  <div className="flex items-center gap-4 mb-4 sm:mb-6">
-                    <div className="p-3.5 bg-emerald-600 text-white rounded-2xl shadow-md group-hover:scale-110 transition-transform">
-                      <IconComp className="w-7 h-7 sm:w-8 sm:h-8" />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-emerald-900">
-                      {service.title}
-                    </h3>
+                  <div className="absolute bottom-5 left-5 w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-lg">
+                    <Icon className="w-7 h-7" />
                   </div>
+                </div>
 
-                  <p className="text-sm sm:text-base lg:text-lg text-emerald-800 leading-relaxed whitespace-pre-line">
+                {/* Content */}
+                <div className="p-6 sm:p-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-emerald-900 mb-4">
+                    {service.title}
+                  </h2>
+
+                  <p className="text-emerald-800 leading-relaxed mb-6">
                     {service.description}
                   </p>
+
+                  <h3 className="font-bold text-emerald-900 mb-4">
+                    Includes:
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {service.includes.map((item, itemIndex) => (
+                      <div
+                        key={itemIndex}
+                        className="flex items-start gap-2 text-emerald-800"
+                      >
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-16 text-center bg-emerald-800 rounded-3xl px-6 py-10 sm:px-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+            Looking for a Custom Packaging Solution?
+          </h2>
+
+          <p className="text-emerald-100 max-w-2xl mx-auto mb-7">
+            Tell us your packaging requirements and our team will help you
+            develop the right sustainable solution for your business.
+          </p>
+
+          <a
+            href="/contact"
+            className="inline-flex items-center justify-center bg-white text-emerald-800 font-bold px-7 py-3 rounded-xl hover:bg-emerald-50 transition"
+          >
+            Send Your Requirement
+          </a>
+        </div>
       </div>
     </section>
   );
