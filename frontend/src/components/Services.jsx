@@ -86,7 +86,7 @@ const Services = () => {
     <section className="py-20 sm:py-24 bg-gradient-to-b from-white via-emerald-50/40 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Page Heading */}
+        {/* Heading */}
         <div className="text-center mb-14 sm:mb-16">
           <p className="text-emerald-600 font-semibold tracking-wide uppercase text-sm mb-3">
             What We Offer
@@ -102,7 +102,7 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Services */}
+        {/* Service Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
@@ -112,26 +112,25 @@ const Services = () => {
                 key={service.title}
                 className={`group bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-md hover:shadow-xl transition-all duration-300 ${
                   index === services.length - 1
-                    ? "lg:col-span-2 lg:max-w-3xl lg:mx-auto lg:w-full"
+                    ? "lg:col-span-2 lg:max-w-4xl lg:mx-auto lg:w-full"
                     : ""
                 }`}
               >
-                {/* Service Image */}
-                <div className="relative h-64 sm:h-72 overflow-hidden bg-emerald-50">
+
+                {/* FULL IMAGE - NO CROPPING */}
+                <div className="relative w-full bg-emerald-50 flex items-center justify-center p-2">
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-auto max-h-[430px] object-contain"
                   />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
                   <div className="absolute bottom-5 left-5 w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-lg">
                     <Icon className="w-7 h-7" />
                   </div>
                 </div>
 
-                {/* Service Information */}
+                {/* Content */}
                 <div className="p-6 sm:p-8">
                   <h2 className="text-2xl sm:text-3xl font-bold text-emerald-900 mb-4">
                     {service.title}
@@ -163,7 +162,7 @@ const Services = () => {
           })}
         </div>
 
-        {/* Contact CTA */}
+        {/* Bottom CTA */}
         <div className="mt-16 text-center bg-emerald-800 rounded-3xl px-6 py-10 sm:px-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
             Looking for a Custom Packaging Solution?
