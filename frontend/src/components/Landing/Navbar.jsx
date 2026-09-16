@@ -61,10 +61,10 @@ const Navbar = ({ scrollToSection }) => {
             src={logo}
             alt="GreenVora Exim Logo"
             className="
-              h-12 w-12
-              sm:h-14 sm:w-14
-              lg:h-16 lg:w-16
-              xl:h-[70px] xl:w-[70px]
+              h-14 w-14
+              sm:h-16 sm:w-16
+              lg:h-20 lg:w-20
+              xl:h-[90px] xl:w-[90px]
               rounded-full
               object-cover
             "
