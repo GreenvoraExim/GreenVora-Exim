@@ -1,221 +1,327 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { apiGet } from '../../apiClient';
-import { resolveImage } from '../../utils/resolveImage';
+// src/components/Landing/Hero.jsx
 
-import heroImage from '../../assets/heroimg.png';
-import img1 from '../../assets/hero1.png';
-import img2 from '../../assets/hero2.png';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Leaf,
+  Palette,
+  PackageCheck,
+  Globe2,
+  CheckCircle2,
+  ShoppingBag,
+  Recycle,
+  FileText,
+  ArrowRight,
+} from "lucide-react";
 
-const defaultHero = {
-  title: 'One-Stop Sustainable Packaging Solutions',
-  subtitle: 'Customized Jute Bags, Compostable Bags and Paper Bags for India and Global Markets.',
-  description:
-    'Greenvora Exim helps businesses transition to sustainable packaging through high-quality jute bags, compostable bags and paper bags. From custom branding and printing to bulk supply and export support, we provide end-to-end packaging solutions tailored to your business needs.',
+import heroImage from "../../assets/heroimg.png";
 
-  image: 'heroimg.png',
-
-  cta1: {
-    text: 'View Products',
-    path: '/products',
+const products = [
+  {
+    title: "Jute Packaging",
+    description:
+      "Strong, reusable and sustainable jute packaging for shopping, gifting, promotional and business requirements.",
+    image: "/images/products/Shopping and Carry Bags.png",
+    icon: ShoppingBag,
   },
-
-  cta2: {
-    text: 'Request a Demo',
-    path: '/contact',
+  {
+    title: "Compostable Packaging",
+    description:
+      "Eco-friendly alternatives to conventional plastic packaging for retail, commercial and everyday packaging needs.",
+    image: "/images/products/Carry Bags.png",
+    icon: Recycle,
   },
-
-  features: [
-    'Sustainable Packaging Solutions',
-    'Custom Branding & Printing',
-    'Bulk Supply Support',
-    'India & Global Markets',
-  ],
-
-  whatWeDo: {
-    title: 'What We Do',
-    content:
-      'We provide sustainable packaging solutions designed to help businesses reduce environmental impact while enhancing brand visibility. Whether you need jute bags, compostable bags and paper bags our team delivers customized packaging solutions backed by quality, reliability, and scalable supply capabilities.',
+  {
+    title: "Paper Packaging",
+    description:
+      "Sustainable paper and kraft packaging solutions suitable for retail, gifting, food service and customized branding.",
+    image: "/images/products/Brown Kraft Carry Bags.png",
+    icon: FileText,
   },
+];
 
-  keyProducts: [
-    {
-      title: 'Jute Packaging',
-      description:
-        'Sustainable jute packaging for shopping, gifting, and promotional use.',
-      image: 'hero1.png',
-    },
-    {
-      title: 'Compostable Packaging',
-      description:
-        'Eco-friendly packaging solutions designed for a more sustainable future.',
-      image: 'hero2.png',
-    },
-  ],
-
-  whyChoose: {
-    title: 'Why Choose Greenvora Exim',
-    content:
-      'We provide sustainable packaging solutions that help businesses strengthen their brand, reduce environmental impact, and meet their unique packaging requirements through quality products and customization options.',
+const features = [
+  {
+    title: "Sustainable Packaging",
+    icon: Leaf,
   },
-};
+  {
+    title: "Custom Branding & Printing",
+    icon: Palette,
+  },
+  {
+    title: "Bulk Supply Support",
+    icon: PackageCheck,
+  },
+  {
+    title: "India & Global Markets",
+    icon: Globe2,
+  },
+];
+
+const benefits = [
+  "Multiple Sustainable Material Options",
+  "Custom Sizes, Designs & Branding",
+  "Bulk Order Fulfillment",
+  "Quality-Focused Supply",
+  "Export Support",
+  "Solutions for India & Global Markets",
+];
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [heroData, setHeroData] = useState(defaultHero);
-
-  const imageMap = useMemo(
-    () => ({
-      'heroimg.png': heroImage,
-      'hero1.png': img1,
-      'hero2.png': img2,
-    }),
-    []
-  );
-
-  useEffect(() => {
-    apiGet('/api/hero', { cacheKey: 'hero' })
-      .then((data) => {
-        setHeroData((prev) => ({
-          ...prev,
-          ...data,
-          cta1: { ...prev.cta1, ...data.cta1 },
-          cta2: { ...prev.cta2, ...data.cta2 },
-          whatWeDo: { ...prev.whatWeDo, ...data.whatWeDo },
-          whyChoose: { ...prev.whyChoose, ...data.whyChoose },
-          features: data.features?.length
-            ? data.features
-            : prev.features,
-          keyProducts: data.keyProducts?.length
-            ? data.keyProducts
-            : prev.keyProducts,
-        }));
-      })
-      .catch((err) => console.error('Hero fetch error:', err));
-  }, []);
-
-  const {
-    title,
-    subtitle,
-    description,
-  
-    image,
-    cta1,
-    cta2,
-    features,
-    whatWeDo,
-    keyProducts,
-    whyChoose,
-  } = heroData;
-
-  const mainImage = resolveImage(image, imageMap, heroImage);
 
   return (
     <>
-      <section className="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-green-700 text-white py-16 md:py-20 px-4 md:px-24">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
+      {/* ================= HERO ================= */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 lg:pt-32 lg:pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-        <div className="lg:w-1/2 text-center lg:text-left">
-  <h1 className="text-3xl md:text-5xl font-bold pt-15 leading-tight mb-4">
-    {title}
-  </h1>
+            {/* Hero Content */}
+            <div className="text-center lg:text-left">
+              <p className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm font-semibold text-emerald-100 mb-6">
+                <Leaf className="w-4 h-4" />
+                Sustainable Packaging for Modern Businesses
+              </p>
 
-  <h2 className="text-xl md:text-3xl font-semibold mb-4 text-emerald-200">
-    {subtitle}
-  </h2>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                One-Stop Sustainable
+                <span className="block text-emerald-300">
+                  Packaging Solutions
+                </span>
+              </h1>
 
-  <p className="text-base md:text-lg text-emerald-100 mb-6 leading-relaxed">
-    {description}
-  </p>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-100 mb-5">
+                Jute, Compostable & Paper Packaging for India and Global Markets
+              </h2>
 
-  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-    <button
-      onClick={() => navigate(cta1?.path || '/products')}
-      className="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition w-full sm:w-auto"
-    >
-      {cta1?.text || 'View Products'}
-    </button>
+              <p className="text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8">
+                GreenVora Exim helps businesses transition to sustainable
+                packaging through high-quality jute, compostable and paper
+                packaging solutions. From custom branding and printing to bulk
+                supply and export support, we provide solutions tailored to
+                your business requirements.
+              </p>
 
-    <button
-      onClick={() => navigate(cta2?.path || '/contact')}
-      className="bg-white text-emerald-800 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-gray-100 transition w-full sm:w-auto"
-    >
-      {cta2?.text || 'Request a Demo'}
-    </button>
-  </div>
-</div>
-          <div className="lg:w-1/2 flex justify-center">
-            <img
-              src={mainImage}
-              alt={title}
-              className="rounded-2xl shadow-2xl w-full max-w-xs sm:max-w-md rotate-[-5deg] hover:rotate-0 transition duration-500"
-            />
-          </div>
-        </div>
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <button
+                  onClick={() => navigate("/products")}
+                  className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-7 py-3.5 rounded-xl font-bold shadow-lg transition"
+                >
+                  View Products
+                  <ArrowRight className="w-5 h-5" />
+                </button>
 
-        <div className="relative md:absolute md:bottom-[-30px] mt-10 md:mt-0 left-1/2 transform -translate-x-1/2 w-full md:w-[90%] bg-white text-gray-800 rounded-xl shadow-xl flex flex-col md:flex-row items-center justify-around gap-3 py-4 text-sm md:text-lg font-medium px-4">
-          {features?.map((feature) => (
-            <span key={feature}>✔ {feature}</span>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-gray-50 pt-16 md:pt-20 pb-10 text-center px-4 md:px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">
-          {whatWeDo?.title}
-        </h2>
-
-        <p className="max-w-3xl mx-auto text-gray-600 text-sm md:text-base">
-          {whatWeDo?.content}
-        </p>
-      </section>
-
-      <section className="bg-gray-100 py-10 px-4 md:px-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
-          Our Key Products
-        </h2>
-
-        <p className="text-center text-gray-600 mb-8 text-sm md:text-base">
-          Sustainable packaging products designed to support your branding and packaging needs.
-        </p>
-
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          {keyProducts?.map((product, index) => (
-            <div
-              key={product.title || index}
-              className="bg-white rounded-xl shadow-md overflow-hidden"
-            >
-              <img
-                src={resolveImage(
-                  product.image,
-                  imageMap,
-                  index === 0 ? img1 : img2
-                )}
-                alt={product.title}
-                className="h-90 w-full object-cover"
-              />
-
-              <div className="p-4">
-                <h3 className="text-lg md:text-xl font-semibold mb-2">
-                  {product.title}
-                </h3>
-
-                <p className="text-gray-600 text-sm">
-                  {product.description}
-                </p>
+                <button
+                  onClick={() => navigate("/contact")}
+                  className="inline-flex items-center justify-center bg-white text-emerald-900 px-7 py-3.5 rounded-xl font-bold shadow-lg hover:bg-emerald-50 transition"
+                >
+                  Send Your Requirement
+                </button>
               </div>
             </div>
-          ))}
+
+            {/* Hero Image */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-lg bg-white/10 border border-white/20 rounded-3xl p-4 shadow-2xl">
+                <img
+                  src={heroImage}
+                  alt="GreenVora Exim Sustainable Packaging"
+                  className="w-full h-auto max-h-[520px] object-contain rounded-2xl"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-white py-10 md:py-12 text-center px-4 md:px-6">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6">
-          {whyChoose?.title}
-        </h2>
+      {/* ================= FEATURES ================= */}
+      <section className="relative -mt-1 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 bg-white border border-emerald-100 shadow-xl rounded-2xl overflow-hidden">
+            {features.map((feature) => {
+              const Icon = feature.icon;
 
-        <div className="max-w-3xl mx-auto text-gray-600 text-sm md:text-base">
-          {whyChoose?.content}
+              return (
+                <div
+                  key={feature.title}
+                  className="flex flex-col sm:flex-row items-center justify-center text-center sm:text-left gap-3 px-4 py-6 border-b lg:border-b-0 border-r border-emerald-100 last:border-r-0"
+                >
+                  <div className="w-11 h-11 flex-shrink-0 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <Icon className="w-6 h-6" />
+                  </div>
+
+                  <span className="text-sm sm:text-base font-semibold text-emerald-900">
+                    {feature.title}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WHAT WE DO ================= */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-emerald-600 font-semibold uppercase tracking-wide text-sm mb-3">
+            Sustainable Solutions
+          </p>
+
+          <h2 className="text-3xl sm:text-4xl font-bold text-emerald-900 mb-6">
+            What We Do
+          </h2>
+
+          <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+            We provide sustainable packaging solutions designed to help
+            businesses reduce environmental impact while enhancing brand
+            visibility. Whether you need jute bags, compostable bags or paper
+            packaging, we support your requirements with customization,
+            quality-focused supply and scalable solutions.
+          </p>
+        </div>
+      </section>
+
+      {/* ================= KEY PRODUCTS ================= */}
+      <section className="py-20 bg-emerald-50/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center mb-12">
+            <p className="text-emerald-600 font-semibold uppercase tracking-wide text-sm mb-3">
+              Our Range
+            </p>
+
+            <h2 className="text-3xl sm:text-4xl font-bold text-emerald-900 mb-4">
+              Our Key Products
+            </h2>
+
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Explore sustainable packaging options for retail, commercial,
+              promotional and bulk business requirements.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {products.map((product) => {
+              const Icon = product.icon;
+
+              return (
+                <div
+                  key={product.title}
+                  className="group bg-white rounded-3xl border border-emerald-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Image - Full Image Visible */}
+                  <div className="relative bg-emerald-50 p-3 flex items-center justify-center min-h-[280px]">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-auto max-h-[340px] object-contain"
+                      loading="lazy"
+                    />
+
+                    <div className="absolute bottom-5 left-5 w-12 h-12 bg-emerald-700 text-white rounded-xl shadow-lg flex items-center justify-center">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-emerald-900 mb-3">
+                      {product.title}
+                    </h3>
+
+                    <p className="text-gray-600 leading-relaxed mb-5">
+                      {product.description}
+                    </p>
+
+                    <button
+                      onClick={() => navigate("/products")}
+                      className="inline-flex items-center gap-2 text-emerald-700 font-bold hover:text-emerald-900 transition"
+                    >
+                      Explore Products
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center mt-10">
+            <button
+              onClick={() => navigate("/products")}
+              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-7 py-3 rounded-xl transition shadow-md"
+            >
+              View All Products
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WHY CHOOSE US ================= */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <div>
+              <p className="text-emerald-600 font-semibold uppercase tracking-wide text-sm mb-3">
+                Why GreenVora Exim
+              </p>
+
+              <h2 className="text-3xl sm:text-4xl font-bold text-emerald-900 mb-6">
+                Packaging Solutions Built Around Your Business
+              </h2>
+
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+                We work with businesses to provide sustainable packaging
+                solutions based on their product, branding, quantity and supply
+                requirements. Our focus is on practical customization,
+                dependable supply and environmentally responsible packaging
+                options.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {benefits.map((benefit) => (
+                <div
+                  key={benefit}
+                  className="flex items-start gap-3 bg-emerald-50 rounded-2xl p-5 border border-emerald-100"
+                >
+                  <CheckCircle2 className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" />
+
+                  <span className="font-semibold text-emerald-900">
+                    {benefit}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= CTA ================= */}
+      <section className="pb-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-emerald-800 rounded-3xl px-6 sm:px-10 py-12 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              Looking for Sustainable Packaging for Your Business?
+            </h2>
+
+            <p className="text-emerald-100 max-w-2xl mx-auto mb-7 leading-relaxed">
+              Share your packaging requirements with us, including product,
+              quantity, size and customization needs.
+            </p>
+
+            <button
+              onClick={() => navigate("/contact")}
+              className="inline-flex items-center gap-2 bg-white text-emerald-800 font-bold px-7 py-3 rounded-xl hover:bg-emerald-50 transition"
+            >
+              Send Your Requirement
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </section>
     </>
