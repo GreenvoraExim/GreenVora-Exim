@@ -19,7 +19,8 @@ const Navbar = ({ scrollToSection }) => {
 
   const isActive = (path) =>
     location.pathname === path ||
-    (path === "/products" && location.pathname.startsWith("/products/"));
+    (path === "/products" &&
+      location.pathname.startsWith("/products/"));
 
   const handleLinkClick = (link) => {
     if (link.id === "home") {
@@ -38,15 +39,23 @@ const Navbar = ({ scrollToSection }) => {
   return (
     <nav
       className="
-        fixed top-4 lg:top-5 left-1/2 z-50
-        w-[95%] lg:w-[92%]
+        fixed
+        top-4
+        left-1/2
+        z-50
+        w-[95%]
+        lg:w-[92%]
         max-w-[1450px]
         -translate-x-1/2
         bg-white
-        border border-gray-200
+        border
+        border-gray-200
         shadow-lg
-        px-4 sm:px-6 lg:px-10 xl:px-12
-        py-2 lg:py-4
+        px-4
+        sm:px-6
+        lg:px-10
+        xl:px-12
+        py-2
         rounded-[2rem]
       "
     >
@@ -54,26 +63,41 @@ const Navbar = ({ scrollToSection }) => {
 
         {/* Logo + Company Name */}
         <div
-          className="flex items-center gap-2 lg:gap-4 cursor-pointer"
+          className="flex items-center gap-3 lg:gap-4 cursor-pointer"
           onClick={() => handleLinkClick(navLinks[0])}
         >
-          <img
-            src={logo}
-            alt="GreenVora Exim Logo"
+          {/* Logo container - navbar height stays compact */}
+          <div
             className="
               h-14 w-14
-              sm:h-16 sm:w-16
-              lg:h-20 lg:w-20
-              xl:h-[90px] xl:w-[90px]
+              lg:h-16 lg:w-16
+              overflow-hidden
               rounded-full
-              object-cover
+              flex-shrink-0
+              flex
+              items-center
+              justify-center
             "
-          />
+          >
+            <img
+              src={logo}
+              alt="GreenVora Exim Logo"
+              className="
+                w-full
+                h-full
+                object-cover
+                scale-[1.45]
+              "
+            />
+          </div>
 
+          {/* Company Name */}
           <span
             className="
-              text-xl sm:text-2xl
-              lg:text-3xl xl:text-[32px]
+              text-xl
+              sm:text-2xl
+              lg:text-3xl
+              xl:text-[32px]
               font-bold
               bg-gradient-to-r
               from-emerald-800
@@ -94,12 +118,17 @@ const Navbar = ({ scrollToSection }) => {
               key={link.id}
               onClick={() => handleLinkClick(link)}
               className={`
-                px-3 lg:px-5 xl:px-6
-                py-2.5 lg:py-3
-                text-base lg:text-lg xl:text-xl
+                px-3
+                lg:px-5
+                xl:px-6
+                py-2
+                text-base
+                lg:text-lg
+                xl:text-xl
                 font-semibold
                 rounded-xl
-                transition-all duration-200
+                transition-all
+                duration-200
                 whitespace-nowrap
                 ${
                   isActive(link.path)
@@ -116,7 +145,13 @@ const Navbar = ({ scrollToSection }) => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="
+            md:hidden
+            p-2
+            hover:bg-gray-100
+            rounded-lg
+            transition-colors
+          "
           aria-label="Toggle navigation menu"
         >
           {isMenuOpen ? (
